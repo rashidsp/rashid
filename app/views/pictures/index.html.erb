@@ -1,0 +1,61 @@
+<h1>New Picture</h1>
+
+<%= form_for @picture, html: { multipart: true } do |f| %>
+    <% if @picture.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@picture.errors.count, "error") %> prohibited this pet from being saved:</h2>
+
+          <ul>
+            <% @picture.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :lat %><br>
+      <%= f.text_field :lat %>
+    </div>
+    <div class="field">
+      <%= f.label :lng %><br>
+      <%= f.text_area :lng %>
+    </div>
+    <div class="field">
+      <%= f.label :image %><br>
+      <%= f.file_field :image %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+<h1>Pictures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lat</th>
+      <th>Lng</th>
+      <th>Image</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pictures.each do |picture| %>
+      <tr>
+        <td><%= picture.lat %></td>
+        <td><%= picture.lng %></td>
+        <td><%= picture.image %></td>
+        <td><%= link_to 'Show', picture %></td>
+        <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
+        <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Picture', new_picture_path %>
